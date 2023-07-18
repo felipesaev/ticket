@@ -1,15 +1,14 @@
-import { createContext, useEffect, useState } from "react";
-import { supabase } from "./db";
+import { createContext, useEffect, useState } from 'react'
+import { supabase } from './db'
 
-export const UsuarioContext = createContext(null);
+export const UsuarioContext = createContext(null)
 
-UsuarioContext.displayName = "Teste"
+UsuarioContext.displayName = 'Teste'
 
 export const UsuarioProvider = ({ children }: any) => {
-
   const [session, setSession] = useState(null)
 
-    useEffect(() => { 
+  useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
     })
@@ -24,8 +23,8 @@ export const UsuarioProvider = ({ children }: any) => {
   }, [])
 
   return (
-    <UsuarioContext.Provider value={{session}}>
+    <UsuarioContext.Provider value={{ session }}>
       {children}
     </UsuarioContext.Provider>
-  );
-};
+  )
+}
