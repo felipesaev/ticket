@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
-import { supabase } from "../db"
+import { supabase } from "@/services/localStorage/db"
 import { useContext } from "react"
-import { UsuarioContext } from "../User"
+import { UserContext } from "@/contexts/UserContext"
 
 export const Header = () => {
-  const { session } = useContext(UsuarioContext)
-
+  const { session } = useContext(UserContext)
+  console.log(session);
+  
   return (
     <div className="navbar bg-base-100">
     <div className="flex-1">
@@ -24,7 +25,7 @@ export const Header = () => {
           </Link>
         </>
       )}
-      {session && (
+      {!!session && (
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">

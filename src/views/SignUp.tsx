@@ -1,12 +1,8 @@
 import { Auth } from '@supabase/auth-ui-react'
-import { supabase } from '../db'
+import { supabase } from '@/services/localStorage/db'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { useContext } from 'react'
-import { UsuarioContext } from '../User'
 
 export const SignUp = () => {
-  const { session, setSession } = useContext(UsuarioContext)
-  console.log('OUT session', session)
 
   return (
     <div className="grid h-screen place-items-center">
