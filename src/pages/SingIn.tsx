@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { supabase } from '../db'
 import { UsuarioContext } from '../User'
 import { Auth } from '@supabase/auth-ui-react'
@@ -6,18 +6,19 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SignIn = () => {
-  const { session, setSession } = useContext(UsuarioContext)
-  console.log(session)
+  const { session } = useContext(UsuarioContext)
 
   if (!session) {
     return (
-      <Auth
-        view="sign_in"
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-      />
-    )
-  } else {
-    return <h1>AREA LOGADA</h1>
-  }
+      <div className='grid h-screen place-items-center'>
+        <Auth
+          view="sign_in"
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          />
+          </div>
+      )
+    } else {
+      return <h1>AREA LOGADA</h1>
+    }
 }
