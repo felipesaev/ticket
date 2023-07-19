@@ -13,7 +13,28 @@ export const SignIn = () => {
       <div className='grid h-screen place-items-center'>
         <Auth
           view="sign_in"
+        providers={[]}
           supabaseClient={supabase}
+          localization={{
+            variables: {
+              sign_in: {
+                email_label: 'Email',
+                email_input_placeholder: 'Digite seu email',
+                password_label: 'Senha',
+                password_input_placeholder: 'Senha',
+                button_label: 'Entrar',
+                loading_button_label: 'entrando...',
+                
+              },
+              forgotten_password: {
+                 button_label: 'Me envie uma nova senha',
+                 email_label: 'Email',
+                email_input_placeholder: 'Digite seu email',
+                link_text: 'Esqueci minha senha',
+              },
+              
+            },
+          }}
           appearance={{ theme: ThemeSupa }}
           />
           </div>

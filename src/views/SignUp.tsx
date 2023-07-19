@@ -8,6 +8,7 @@ export const SignUp = () => {
     <div className="grid h-screen place-items-center">
       <Auth
         view="sign_up"
+        providers={[]}
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
       />
