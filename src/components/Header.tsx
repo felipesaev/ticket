@@ -1,32 +1,34 @@
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 import { supabase } from "@/services/localStorage/db"
 import { useContext } from "react"
 import { UserContext } from "@/contexts/UserContext"
 
 export const Header = () => {
   const { session } = useContext(UserContext)
-  console.log(session);
   
   return (
+    <>
     <div className="navbar bg-base-100">
-    <div className="flex-1">
-      <Link to={'/'}>
-      <a className="btn btn-ghost normal-case text-xl">Ticket</a>
-      </Link>
-    </div>
-    <div className="flex-none gap-2">
+      <div className="flex-1">
+      <Link to={'/home'}>
+
+<a className="btn btn-ghost normal-case text-xl">Ticket</a>
+</Link>
+      </div>
+      <div className="flex-none">
       {!session && (
         <>
           <Link to={'/register'}>
-            <a className="btn">Register</a>
+            <a className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mx-4">Register</a>
           </Link>
           <Link to={'/login'}>
-            <a className="btn">Login</a>
+            <a className="text-sm">Login</a>
           </Link>
-        </>
+          </>
       )}
-      {!!session && (
         <div className="dropdown dropdown-end">
+      {!!session && (
+        <>
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               <img src="https://i.pravatar.cc/150?img=4" />
@@ -49,10 +51,16 @@ export const Header = () => {
               <a onClick={() => supabase.auth.signOut()}>Logout</a>
             </li>
           </ul>
-        </div>
+          </>
       )}
-    </div>
-  </div>
+      </div>
 
+        </div>
+    <div className="grid place-items-center">
+
+  </div>
+    </div>
+  <Outlet />
+        </>
   )
 }

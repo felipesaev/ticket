@@ -5,7 +5,8 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 export const SignUp = () => {
 
   return (
-    <div className="grid h-screen place-items-center">
+    <div className='grid place-items-center h-[90vh]'>
+
       <Auth
         view="sign_up"
         providers={[]}

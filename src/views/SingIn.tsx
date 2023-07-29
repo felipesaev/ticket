@@ -3,14 +3,17 @@ import { supabase } from '@/services/localStorage/db'
 import { UserContext } from '@/contexts/UserContext'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { Home } from './Home'
+import { useNavigate } from 'react-router-dom'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SignIn = () => {
   const { session } = useContext(UserContext)
-
+  const navigate = useNavigate();
   if (!session) {
     return (
-      <div className='grid h-screen place-items-center'>
+      <div className='grid place-items-center h-[90vh]'>
+
         <Auth
           view="sign_in"
         providers={[]}
@@ -37,9 +40,10 @@ export const SignIn = () => {
           }}
           appearance={{ theme: ThemeSupa }}
           />
-          </div>
+      </div>
       )
     } else {
-      return <h1>AREA LOGADA</h1>
+      navigate('/home')
+      return (<Home />)
     }
 }
