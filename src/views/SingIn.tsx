@@ -9,14 +9,14 @@ import { useNavigate } from 'react-router-dom'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SignIn = () => {
   const { session } = useContext(UserContext)
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
   if (!session) {
     return (
-      <div className='grid place-items-center h-[90vh]'>
-
+      <div className="grid place-items-center h-[90vh]">
         <Auth
           view="sign_in"
-        providers={[]}
+          providers={[]}
           supabaseClient={supabase}
           localization={{
             variables: {
@@ -27,23 +27,21 @@ export const SignIn = () => {
                 password_input_placeholder: 'Senha',
                 button_label: 'Entrar',
                 loading_button_label: 'entrando...',
-                
               },
               forgotten_password: {
-                 button_label: 'Me envie uma nova senha',
-                 email_label: 'Email',
+                button_label: 'Me envie uma nova senha',
+                email_label: 'Email',
                 email_input_placeholder: 'Digite seu email',
                 link_text: 'Esqueci minha senha',
               },
-              
             },
           }}
           appearance={{ theme: ThemeSupa }}
-          />
+        />
       </div>
-      )
-    } else {
-      navigate('/home')
-      return (<Home />)
-    }
+    )
+  } else {
+    navigate('/home')
+    return <Home />
+  }
 }

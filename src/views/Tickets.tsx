@@ -1,57 +1,45 @@
-import { useContext, useEffect, useState } from "react"
-import { supabase } from "../services/localStorage/db"
-import { UserContext } from "../contexts/UserContext"
+import { useUsers } from '@/hooks/useUsers'
+import { FormatDate } from '@/utils/formatData'
+import { useEffect, useState } from 'react'
+
 export const Tickets = () => {
+  const [users, updateUsers] = useState([])
 
-  const { session } = useContext(UserContext);
-  
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [users, setUsers] = useState<any>([])
-  async function fetchData() {
-  const { data: users } = await supabase
-  .from('users')
-  .select('*')
-  .eq('identify', session.user.id)
-  setUsers(users)
-  return users
-  
-}
+  const { data, isLoading } = useUsers()
+  console.log('data', data)
 
-useEffect(() => {
-  fetchData()
-},[]) 
+  useEffect(() => {
+    updateUsers(data)
+  }, [data])
 
-  async function createUser() {
-    const { data } = await supabase
-  .from('users')
-  .insert([
-    { name: 'someValue', identify: session.user.id },
-  ])
-  .select()
-
-  console.log('error', users);
-  
-
-  return data
+  if (isLoading) {
+    return <span className="loading loading-spinner loading-lg"></span>
   }
-    
 
-  console.log('USERS', users);
-  
   return (
-    <>
-      {users.map((item) => {
+    <div className="grid gap-4">
+      <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+        Yours tickets
+      </h1>
+
+      {users?.data?.map((item, id) => {
         return (
-          <>
-          <ul>
-            <li>Nome: {item.name}</li>
-          </ul>
-          </>
+          <div className="indicator" key={id}>
+            {true && <span class="indicator-item badge badge-error">new</span>}
+            <div
+              className="card w-96 bg-base-content
+            text-white"
+            >
+              <div className="card-body">
+                <h2 className="card-title">{item.name}</h2>
+                <h4 className="card-description">{item.document}</h4>
+                <h4 className="card-description">{FormatDate(item.time)}</h4>
+                <div className="badge">{item.category}</div>
+              </div>
+            </div>
+          </div>
         )
       })}
-
-      <button onClick={createUser}>Create Ticket</button>
-    </>
+    </div>
   )
 }
-
