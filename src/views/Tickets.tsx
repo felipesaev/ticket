@@ -1,16 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUsers } from '@/hooks/useUsers'
 import { FormatDate } from '@/utils/formatData'
 import { useEffect, useState } from 'react'
 
+type Data = {
+  data: any
+}
+
 export const Tickets = () => {
-  const [users, updateUsers] = useState([])
-
-  const { data, isLoading } = useUsers()
-  console.log('data', data)
-
+  const [users, updateUsers] = useState<Data>();
+  
+  const { data, isLoading } = useUsers();
   useEffect(() => {
-    updateUsers(data)
-  }, [data])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    updateUsers(data as any)
+  }, [])
 
   if (isLoading) {
     return <span className="loading loading-spinner loading-lg"></span>
@@ -22,10 +26,10 @@ export const Tickets = () => {
         Yours tickets
       </h1>
 
-      {users?.data?.map((item, id) => {
+      {users?.data?.map((item: any, id: any) => {
         return (
           <div className="indicator" key={id}>
-            {true && <span class="indicator-item badge badge-error">new</span>}
+            {true && <span className="indicator-item badge badge-error">new</span>}
             <div
               className="card w-96 bg-base-content
             text-white"

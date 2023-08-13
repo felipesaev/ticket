@@ -1,13 +1,12 @@
 import { ReactNode, createContext, useEffect, useState } from 'react'
 import { supabase } from '@/services/localStorage/db'
-import { Home } from '@/views/Home'
 
 type UserContextProps = {
   children: ReactNode
 }
 
 interface UserContextType {
-  session?: object
+  session?: object | null
 }
 
 const initialValue = {
@@ -22,13 +21,15 @@ export const UserProvider = ({ children }: UserContextProps) => {
   useEffect(() => {
     try {
       supabase.auth.getSession().then(({ data: { session } }) => {
-        setSession(session)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setSession(session as any)
       })
 
       const {
         data: { subscription },
       } = supabase.auth.onAuthStateChange((_event, session) => {
-        setSession(session)
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         setSession(session as any)
       })
 
       return () => subscription.unsubscribe()
