@@ -3,11 +3,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
+import { Data } from "@/schemas/data";
 
 const validationSchema = z
   .object({
     name: z.string().min(1, { message: "Name is required" }),
     category: z.string(),
+    local: z.string(),
     document: z
       .string()
       .min(6, { message: "Password must be atleast 6 characters" }),
@@ -37,7 +39,7 @@ export const CreateTickets = () => {
       }
       
       
-       await axios.post('https://oyvlmrxflndhbcpzlubn.supabase.co/rest/v1/users', data, {
+       await axios.post<Data[]>('https://oyvlmrxflndhbcpzlubn.supabase.co/rest/v1/users', data, {
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
@@ -95,6 +97,19 @@ export const CreateTickets = () => {
         />
         {errors.document && (
   <p className="text-xs italic text-red-500 mt-2"> {errors.document?.message}
+  </p>)}
+  <label className="label">
+          <span className="label-text">What local?</span>
+        </label>
+        <input
+          type="text"
+          id="local"
+          {...register("local")}
+          placeholder="Type here"
+          className="input input-bordered w-full max-w-xs"
+        />
+        {errors.local && (
+  <p className="text-xs italic text-red-500 mt-2"> {errors.local?.message}
   </p>)}
 
         <label className="label">
