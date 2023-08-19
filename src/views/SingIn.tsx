@@ -41,7 +41,7 @@ export const SignIn = () => {
       </div>
     )
   } else {
-    navigate('/home')
+    navigate('/')
     return <Home />
   }
 }

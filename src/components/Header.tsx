@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '@/services/localStorage/db'
 import { useContext } from 'react'
 import { UserContext } from '@/contexts/UserContext'
@@ -9,13 +9,13 @@ export const Header = () => {
   const handleLogout = () => {
     supabase.auth.signOut()
     window.localStorage.clear()
-    navigate('/home')
+    navigate('/')
   }
   return (
     <>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link to={'/home'} className="btn btn-ghost normal-case text-xl">
+          <Link to={'/'} className="btn btn-ghost normal-case text-xl">
             Ticket
           </Link>
         </div>
@@ -64,7 +64,6 @@ export const Header = () => {
         </div>
         <div className="grid place-items-center"></div>
       </div>
-      <Outlet />
     </>
   )
 }
